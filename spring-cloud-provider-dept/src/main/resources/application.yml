@@ -1,0 +1,75 @@
+server:
+  port: 8001
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml
+  type-aliases-package: cn.com.lxk.springcloud.entity
+  mapper-locations:
+  - classpath:mybatis/mappers/**/*.xml
+
+spring:
+  application:
+    name: spring-cloud-dept
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cloudTest?useSSL=false
+    username: root
+    password: 123456
+    dbcp2:
+      min-idle: 5
+      initial-size: 5
+      max-total: 5
+      max-wait-millis: 200
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7001.com:7001/eureka/,http://eureka7003.com:7003/eureka/
+  instance:
+    instance-id: SERVICECLOUD-DEPT-8001
+    prefer-ip-address: true
+
+info:
+  app.name: servicecloud-dept
+  company.name: lixk
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+
+
+---
+
+server:
+  port: 8002
+
+spring:
+  profiles: dev2
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cloudtest_two?useSSL=false
+    username: root
+    password: 123456
+
+eureka:
+  instance:
+    instance-id: SERVICECLOUD-DEPT-8002
+
+
+---
+
+server:
+  port: 8003
+
+spring:
+  profiles: dev3
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cloudtest_three?useSSL=false
+    username: root
+    password: 123456
+
+eureka:
+  instance:
+    instance-id: SERVICECLOUD-DEPT-8003
